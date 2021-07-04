@@ -1,17 +1,19 @@
-import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Nav = () => {
-  const [showMenu, setShowMenu] = React.useState(false)
-  const location = useLocation()
+  const [showMenu, setShowMenu] = React.useState(false);
+  const location = useLocation();
 
   const links = [
     { text: 'Home', to: '/' },
     { text: 'Binary Search', to: '/binary-search' },
-  ]
+    { text: 'Selection Sort', to: '/selection-sort' },
+    { text: 'Bubble Sort', to: '/bubble-sort' },
+  ];
 
-  const activeClass = 'text-white bg-gray-900'
-  const inactiveClass = 'text-gray-300 hover:text-white hover:bg-gray-700'
+  const activeClass = 'text-white bg-gray-900';
+  const inactiveClass = 'text-gray-300 hover:text-white hover:bg-gray-700';
 
   return (
     <nav className="bg-gray-800">
@@ -32,11 +34,8 @@ const Nav = () => {
                     key={link.text}
                     to={link.to}
                     className={`px-3 py-2 rounded-md text-sm font-medium ${
-                      location.pathname === link.to
-                        ? activeClass
-                        : inactiveClass
-                    } ${i > 0 && 'ml-4'}`}
-                  >
+                      location.pathname === link.to ? activeClass : inactiveClass
+                    } ${i > 0 && 'ml-4'}`}>
                     {link.text}
                   </Link>
                 ))}
@@ -47,15 +46,13 @@ const Nav = () => {
             {/* Mobile menu button */}
             <button
               onClick={() => setShowMenu(!showMenu)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white"
-            >
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white">
               {/* Menu open: "hidden", Menu closed: "block" */}
               <svg
                 className="block h-6 w-6"
                 stroke="currentColor"
                 fill="none"
-                viewBox="0 0 24 24"
-              >
+                viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -68,8 +65,7 @@ const Nav = () => {
                 className="hidden h-6 w-6"
                 stroke="currentColor"
                 fill="none"
-                viewBox="0 0 24 24"
-              >
+                viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -91,8 +87,7 @@ const Nav = () => {
               to={link.to}
               className={`block px-3 py-2 rounded-md text-sm font-medium ${
                 location.pathname === link.to ? activeClass : inactiveClass
-              } ${i > 0 && 'mt-1'}`}
-            >
+              } ${i > 0 && 'mt-1'}`}>
               {link.text}
             </Link>
           ))}
@@ -102,4 +97,4 @@ const Nav = () => {
   );
 };
 
-export default Nav
+export default Nav;
