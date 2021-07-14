@@ -3,11 +3,38 @@ import React from 'react';
 import Array, { ArrayNode } from '../../components/Array';
 import Header from '../../components/Header';
 
+const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
 const SelectionSortPage: React.FC = () => {
-  function executeSelectionSortPage(
+  async function executeSelectionSortPage(
     array: ArrayNode[],
     renderCallback: (array: ArrayNode[]) => void,
-  ): void {}
+  ): Promise<void> {
+    const timeout = (1 / Math.pow(array.length, 3)) * 200;
+    for (let i = 0; i < array.length; i++) {
+      let minIndex = i;
+      array[i].selected = true;
+      for (let j = i + 1; j < array.length; j++) {
+        if (array[j] < array[i]) {
+          array[minIndex].selected = false;
+          minIndex = j;
+          array[minIndex].selected = true;
+          renderCallback(array);
+          await delay(timeout);
+        }
+      }
+      if (minIndex !== i) {
+        //swap nodes
+        const node = array[i];
+        array[i] = array[minIndex];
+        array[minIndex] = node;
+        renderCallback(array);
+      }
+      array[i].selected = false;
+      array[i].sorted = true;
+      renderCallback(array);
+    }
+  }
 
   return (
     <React.Fragment>
